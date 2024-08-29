@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materiales - Métodos Numéricos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Celeste claro */
+            color: #000000; /* Negro */
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #87CEEB; /* Celeste */
+            color: #ffffff; /* Blanco */
+            padding: 10px 0;
+            text-align: center;
+            position: relative;
+        }
+        header h1, header p {
+            margin: 0;
+            text-align: center;
+        }
+        .navbar {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            background-color: #23272A; /* Fondo del menú de navegación */
+            border-radius: 50px;
+            padding: 10px 20px;
+        }
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar ul li {
+            margin: 0 10px;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: background-color 0.3s ease;
+        }
+        .navbar ul li a:hover {
+            background-color: #3A3D42; /* Efecto hover */
+        }
+        .navbar ul li a.active {
+            background-color: #007BFF; /* Fondo azul para el elemento activo */
+            color: #fff;
+        }
+        main {
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #000000; /* Negro */
+        }
+        a {
+            color: #000000; /* Negro */
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            margin: 10px 0;
+            width: auto; /* Ajuste al contenido */
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px; /* Pequeño margen */
+            text-align: left;
+        }
+        th {
+            background-color: #87CEEB; /* Celeste */
+            color: #ffffff; /* Blanco */
+        }
+        footer {
+            background-color: #87CEEB; /* Celeste */
+            color: #ffffff; /* Blanco */
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Métodos Numéricos</h1>
+        <p>Profesor: Dr. Hermes Pantoja Carhuavilca</p>
+        
+        <!-- Menú de Navegación -->
+        <nav class="navbar">
+            <ul>
+                <li><a href="PortalNumerico.html">Home</a></li>
+                <li><a href="Contenido.html">Contenido</a></li>
+                <li><a href="Materiales.html" class="active">Materiales</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section id="materiales">
+            <h2>Materiales de Estudio</h2>
+            <table>
+                <tr>
+                    <th>Tema</th>
+                    <th>Enlace</th>
+                </tr>
+                <tr>
+                    <td>Teoría de Errores</td>
+                    <td><a href="https://github.com/hpantoja22/Teoria-Errores" target="_blank">Cifras significativas</a></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><a href="https://github.com/hpantoja22/PropagacionErrores" target="_blank">Propagación de errores</a></td>
+                </tr>
+                <!-- Puedes agregar más temas aquí -->
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p> .</p>
+    </footer>
+</body>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+ // Make responsive
+ MathJax.Hub.Config({
+ "HTML-CSS": { linebreaks: { automatic: true } },
+ "SVG": { linebreaks: { automatic: true } },
+ });
+</script>
+
+</html>
