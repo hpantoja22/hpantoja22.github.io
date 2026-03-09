@@ -1,52 +1,369 @@
-\documentclass[11pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{tikz}
-\usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
+% https://github.com/martinhelso/OsloMet
 
-% Librerías de TikZ necesarias
+
+\documentclass[aspectratio = 169]{beamer}
+
+\usepackage{media9}
+\usepackage{animate}
+
+\usetheme{Utec2021}
+\usepackage{style}
+\usepackage{amsmath,bm}
+\usepackage{amssymb}
+%\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{setspace}
+%%%TIkZ
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usepackage{hyperref}
+
+\usepackage{pdfpages}
+\usepackage{comment}
+%%%%%%% Matrix %%%%%%%
+%\usepackage[T1]{fontenc}
+
+
+% Matemática
+\usepackage{amsmath, amssymb}
+
+% TikZ
+\usepackage{tikz}
 \usetikzlibrary{matrix, positioning, arrows.meta, backgrounds, calc}
 
-% Definición de colores basados en la imagen
-\definecolor{titleblue}{HTML}{0D1B36} % Azul oscuro para el texto
-\definecolor{rowcyan}{HTML}{9DF0ED}   % Celeste para la fila
-\definecolor{colyellow}{HTML}{F9F097} % Amarillo para la columna
-\definecolor{intgreen}{HTML}{8BEA84}  % Verde para la intersección
+% Colores
+\usepackage{xcolor}
+
+% Opcional: mejor apariencia tipográfica en beamer
+\usefonttheme{professionalfonts}
+\setbeamertemplate{navigation symbols}{}
+
+% ------------------ COLORES PERSONALIZADOS ------------------
+\definecolor{titleblue}{HTML}{0D1B36}
+\definecolor{rowcyan}{HTML}{9DF0ED}
+\definecolor{colyellow}{HTML}{F9F097}
+\definecolor{intgreen}{HTML}{8BEA84}
+
+% ------------------ ESTILO GENERAL ------------------
+\setbeamercolor{frametitle}{fg=titleblue}
+\setbeamercolor{normal text}{fg=titleblue,bg=white}
+
+
+%%%%%%%%%%%%%
+
+
+
+%\smalllogo{Utec-images/logo_utec.png}
+\usetikzlibrary{arrows}
+\definecolor{ffffff}{rgb}{1.,1.,1.}
+%\definecolor{qqzzff}{rgb}{0.,0.6,1.}
+%%%%%
+\usepackage{enumitem}
+\setlist[enumerate]{label*=\arabic*.}
+
+
+\author[{\textbf\textsf{Universidad de}} Ingeniería y Tecnología]
+{\footnotesize
+{\textcolor{black}{Prof. Hermes Pantoja Carhuavilca}\texorpdfstring{\\}{}
+{\texttt{\textcolor{black}{(hpantoja@utec.edu.pe)} }} \texorpdfstring{\\}{}
+{\textcolor{black}{Prof. Edith Anco Blas}\texorpdfstring{\\}{}
+{\texttt{\textcolor{black}{(eanco@utec.edu.pe)} }} \texorpdfstring{\\}{}
+\textcolor{black}{Prof. César Barraza Bernaola}\texorpdfstring{\\}{}
+{\texttt{\textcolor{black}{(jbarraza@utec.edu.pe)} }}\texorpdfstring{\\}{}
+{\textcolor{black}{Prof. Rósulo Pérez Cupe}\texorpdfstring{\\}{}
+{\texttt{\textcolor{black}{(rperezc@utec.edu.pe)} }} \texorpdfstring{\\}{}
+\textcolor{black}{}\texorpdfstring{\\}{}
+\textcolor{black}{Asistente: Adrián Sasieta}
+\texorpdfstring{\\}{}
+{\texttt{\textcolor{black}{(asasieta@utec.edu.pe){\\}}}
+\textcolor{black}{}\texorpdfstring{\\}{}
+{\texttt{\textcolor{black}{} }} \texorpdfstring{\\}{}
+}}}}}
+
+\title{{Álgebra Lineal}}
+\subtitle{\small{\textbf{S01:} Matrices - Introducci\'on}}
+
+% % Mantén el color por defecto para los bloques de definiciones
+% \setbeamercolor{block title}{bg=structure.fg!25,fg=black} % Títulos con color
+% \setbeamercolor{block body}{bg=structure.fg!10}          % Cuerpo con color
+
+% % Quita el color de fondo para los bloques de ejemplos
+% \setbeamercolor{example block title}{bg=,fg=black}       % Títulos sin color de fondo, texto negro
+% \setbeamercolor{example block body}{bg=,fg=black}        % Cuerpo sin color de fondo, texto negro
+
 
 \begin{document}
+\section{Overview}
+ 
+\begin{comment}
+    
 
-\sffamily % Usar fuente sans-serif para asemejar el estilo de presentación
-\color{titleblue} % Color base para el texto
+\includepdf[pages=1-11, scale=1]{Integridad_Académica_2025-1.pdf}
+% Use
+%
+%   \begin{frame}[allowframebreaks]
+%
+% if the TOC does not fit one frame.https://www.overleaf.com/project/641266cac1acec58713f4dcf
+\end{comment}
+\framepic[1]{utec_campus3}{
+\fontsize{16}{12}\selectfont
+\begin{flushright}%
+Unidad 1:
+\end{flushright}
+%\vfill\null
+\columnbreak
+\fontsize{12}{20}\selectfont
+\textcolor{white}{\textbf{\\Álgebra de matrices y determinantes  \\}}
+%Nociones elementales de matrices y determinantes}}
+}
 
-% --- TÍTULO ---
-{\LARGE \textbf{Definición Formal: El Arreglo}\\ \textbf{Bidimensional}}\\[1.5em]
+\hidelogo
+\begin{frame}{}
+\begin{multicols}{2}
+\begin{minipage}[c]{8cm}
+\includegraphics[height = 7.5cm,width=6cm]
+            {lateral2}
+\end{minipage}
+ \begin{minipage}[c]{5cm}
+ \begin{center}
+ {\Huge{Subtemas}}
+ \end{center}
+ \vspace{1cm}
+ \small 
+  	\begin{enumerate}
+ \item[1. ] Nociones elementales y tipos de matrices (triangular, simétrica, antisimétrica).
+\item[2. ] Operaciones matriciales (suma, multiplicación por un escalar, producto de matrices y transpuesta)
+	\end{enumerate}
+	\end{minipage}
+\end{multicols}
+\end{frame}
+\showlogo 
 
-% --- CONTENIDO PRINCIPAL ---
+
+\hidelogo
+\begin{frame}{}
+\begin{multicols}{2}
+\begin{minipage}[c]{8cm}
+\includegraphics[height = 7.5cm,width=6cm]
+            {lateral2}
+\end{minipage}
+ \begin{minipage}[c]{5cm}
+ \begin{center}
+ {\Huge{RAEs}}
+ \end{center}
+ \vspace{1cm}
+ \small 
+  	\begin{enumerate}
+ \item[AL.1.1.1]	Clasificar y representar matrices según sus propiedades algebraicas y notación matricial.
+\item[AL.1.1.2]	Aplicar operaciones matriciales (suma, producto, transpuesta y multiplicación por escalar) en la resolución de problemas.
+	\end{enumerate}
+	\end{minipage}
+\end{multicols}
+\end{frame}
+\showlogo 
+
+\hidelogo
+\begin{frame}{}
+\begin{multicols}{2}
+\begin{minipage}[c]{8cm}
+\includegraphics[height = 7.5cm,width=6cm]
+            {lateral2}
+\end{minipage}
+ \begin{minipage}[c]{5cm}
+ \begin{center}
+ {\Huge{\'Indice}}
+ \end{center}
+ \tableofcontents
+ %  	\begin{enumerate}
+ %            \item Definiciones
+	%     \item Operaciones
+ %            \begin{enumerate}
+ %                \item Producto por escalar
+ %                \item Suma
+ %                \item Producto de matrices(casos)
+ %                \item Transpuesta de una matriz
+ %            \end{enumerate}
+ %            \item Matrices especiales
+	% \end{enumerate}
+	\end{minipage}
+\end{multicols}
+\end{frame}
+\showlogo
+
+\section{Definiciones}
+
+
+
+\framepic[1]{utec_campus3}{
+\fontsize{81}{12}\selectfont
+\begin{flushright}%
+1
+\end{flushright}
+%\vfill\null
+\columnbreak
+\fontsize{18}{40}\selectfont
+\textcolor{white}{\textbf{\\DEFINICIONES\\}}
+%Nociones elementales de matrices y determinantes}}
+}
+
+% \begin{frame}{Im\'agenes}
+% \begin{figure}
+%     \centering \includegraphics[width=0.2\linewidth]{DIAPOSITIVAS//TEORIA//Teoria-images//sesion01/G3p00.png}
+    
+% \includegraphics[width=0.3\linewidth]{DIAPOSITIVAS//TEORIA//Teoria-images//sesion01/matrixdata.png}
+
+%     \caption{Procesamiento Imagenes}
+%     \label{fig:enter-label}
+% \end{figure}
+
+
+% \end{frame}
+\begin{frame}{¿Qué ve realmente una computadora?}
 \noindent
-\begin{minipage}[c]{0.45\textwidth}
-    Una matriz $A$ es un arreglo de \\ $m \cdot n$ números reales.
-    \vspace{0.5em}
+\begin{minipage}[t]{0.35\textwidth}
+    \vspace{0pt} % Alineación superior
     \begin{itemize}
-        \item Tamaño: $m \text{ filas} \times n \text{ columnas}$.
-        \item Notación: $A = (a_{ij})$
-        \item Ubicación: $i$ indica la fila $(1\dots m)$\\ y $j$ la columna $(1\dots n)$.
+        \item ¿Qué ve un humano?\\ Una fotografía espacial.
+        \item ¿Qué ve la máquina?\\ Una matriz de intensidades de píxeles.
+        \item Cada número (de 0 a 255) representa un nivel de brillo.
     \end{itemize}
 \end{minipage}%
 \hfill
-\begin{minipage}[c]{0.5\textwidth}
-    \begin{tikzpicture}[>=Stealth]
-        % Etiqueta "A ="
-        \node (A_label) at (-0.5, 0) {\Large $A = $};
+\begin{minipage}[t]{0.6\textwidth}
+    \vspace{0pt} % Alineación superior
+    \begin{tikzpicture}[scale=0.6, transform shape]
         
-        % Matriz con TikZ
+        % --- IMAGEN SUPERIOR (Placeholder) ---
+        % Nota: Puedes reemplazar este bloque por tu propia imagen usando:
+         \node[inner sep=0pt] at (3, 9) {\includegraphics[width=4cm]{foto_satelital_huacho.jpg}};
+       % \node[draw, fill=gray!30, minimum width=4cm, minimum height=4cm, align=center] 
+            (photo) at (3, 9) {Fotografía\\(Reemplazar con\\ \textbackslash includegraphics)};
+        
+        % Rectángulo rojo de selección en la foto
+        \draw[red, thick] (2.5, 8) rectangle (3.5, 9);
+        
+        % --- LÍNEAS DE ZOOM ---
+        % Conectan el rectángulo pequeño con la cuadrícula grande
+        \draw[red, thick] (2.5, 8) -- (0, 6);
+        \draw[red, thick] (3.5, 8) -- (6, 6);
+        
+        % --- CUADRÍCULA DE PÍXELES (Inferior Izquierda) ---
+        \begin{scope}[yshift=0cm]
+            % Fila 1 (Superior) - Valores: 170, 238, 85, 255, 221, 0
+            \filldraw[fill=black!33] (0,5) rectangle (1,6);
+            \filldraw[fill=black!7]  (1,5) rectangle (2,6);
+            \filldraw[fill=black!67] (2,5) rectangle (3,6);
+            \filldraw[fill=white]    (3,5) rectangle (4,6); % 255
+            \filldraw[fill=black!13] (4,5) rectangle (5,6);
+            \filldraw[fill=black]    (5,5) rectangle (6,6); % 0
+            
+            % Fila 2 - Valores: 68, 136, 17, 170, 119, 68
+            \filldraw[fill=black!73] (0,4) rectangle (1,5);
+            \filldraw[fill=black!47] (1,4) rectangle (2,5);
+            \filldraw[fill=black!93] (2,4) rectangle (3,5);
+            \filldraw[fill=black!33] (3,4) rectangle (4,5);
+            \filldraw[fill=black!53] (4,4) rectangle (5,5);
+            \filldraw[fill=black!73] (5,4) rectangle (6,5);
+            
+            % Fila 3 - Valores: 221, 0, 238, 136, 0, 255
+            \filldraw[fill=black!13] (0,3) rectangle (1,4);
+            \filldraw[fill=black]    (1,3) rectangle (2,4); % 0
+            \filldraw[fill=black!7]  (2,3) rectangle (3,4);
+            \filldraw[fill=black!47] (3,3) rectangle (4,4);
+            \filldraw[fill=black]    (4,3) rectangle (5,4); % 0
+            \filldraw[fill=white]    (5,3) rectangle (6,4); % 255
+            
+            % Fila 4 - Valores: 119, 255, 85, 170, 136, 238
+            \filldraw[fill=black!53] (0,2) rectangle (1,3);
+            \filldraw[fill=white]    (1,2) rectangle (2,3); % 255
+            \filldraw[fill=black!67] (2,2) rectangle (3,3);
+            \filldraw[fill=black!33] (3,2) rectangle (4,3);
+            \filldraw[fill=black!47] (4,2) rectangle (5,3);
+            \filldraw[fill=black!7]  (5,2) rectangle (6,3);
+            
+            % Fila 5 - Valores: 238, 17, 221, 68, 119, 255
+            \filldraw[fill=black!7]  (0,1) rectangle (1,2);
+            \filldraw[fill=black!93] (1,1) rectangle (2,2);
+            \filldraw[fill=black!13] (2,1) rectangle (3,2);
+            \filldraw[fill=black!73] (3,1) rectangle (4,2);
+            \filldraw[fill=black!53] (4,1) rectangle (5,2);
+            \filldraw[fill=white]    (5,1) rectangle (6,2); % 255
+            
+            % Fila 6 (Inferior) - Valores: 85, 170, 119, 221, 17, 136
+            \filldraw[fill=black!67] (0,0) rectangle (1,1);
+            \filldraw[fill=black!33] (1,0) rectangle (2,1);
+            \filldraw[fill=black!53] (2,0) rectangle (3,1);
+            \filldraw[fill=black!13] (3,0) rectangle (4,1);
+            \filldraw[fill=black!93] (4,0) rectangle (5,1);
+            \filldraw[fill=black!47] (5,0) rectangle (6,1);
+
+            % Borde exterior rojo de la cuadrícula
+            \draw[red, thick] (0,0) rectangle (6,6);
+        \end{scope}
+        
+        % --- FLECHA ---
+        \draw[->, line width=3pt] (6.5, 3) -- (7.5, 3);
+        
+        % --- MATRIZ NUMÉRICA (Derecha) ---
+        \node at (11.5, 3) {
+            $
+            \begin{bmatrix}
+            170 & 238 &  85 & 255 & 221 &   0 \\
+             68 & 136 &  17 & 170 & 119 &  68 \\
+            221 &   0 & 238 & 136 &   0 & 255 \\
+            119 & 255 &  85 & 170 & 136 & 238 \\
+            238 &  17 & 221 &  68 & 119 & 255 \\
+             85 & 170 & 119 & 221 &  17 & 136 
+            \end{bmatrix}
+            $
+        };
+    \end{tikzpicture}
+\end{minipage}
+
+\end{frame}
+
+%%% Inicio Slide-1 %%%
+\begin{frame}{Definición Formal: El Arreglo Bidimensional}
+
+\sffamily
+
+\begin{columns}[T,onlytextwidth]
+    % -------- COLUMNA IZQUIERDA --------
+    \column{0.42\textwidth}
+    
+    \vspace{0.4cm}
+    
+    {\large Una matriz $A$ es un arreglo de $m \cdot n$ números reales.}
+    
+    \vspace{0.6cm}
+    
+    \begin{itemize}
+        \item Tamaño: $m$ filas $\times$ $n$ columnas.
+        \item Notación: $A = (a_{ij})$.
+        \item Ubicación: $i$ indica la fila $(1,\dots,m)$ y $j$ la columna $(1,\dots,n)$.
+    \end{itemize}
+    
+    % -------- COLUMNA DERECHA --------
+    \column{0.58\textwidth}
+    
+    \centering
+    \begin{tikzpicture}[>=Stealth, scale=0.88, transform shape]
+        
+        % Etiqueta A =
+        \node (A_label) at (-1.2,0) {\Large $A=$};
+        
+        % Matriz
         \matrix (M) [
             matrix of math nodes,
-            left delimiter={[}, right delimiter={]},
-            row sep=0.3cm, column sep=0.4cm,
-            right=0.1cm of A_label
+            left delimiter={[},
+            right delimiter={]},
+            row sep=0.35cm,
+            column sep=0.45cm,
+            nodes={anchor=center},
+            right=0.15cm of A_label
         ] {
             a_{11} & a_{12} & \cdots & a_{1j} & \cdots & a_{1n} \\
             a_{21} & a_{22} & \cdots & a_{2j} & \cdots & a_{2n} \\
@@ -55,33 +372,44 @@
             \vdots & \vdots & \ddots & \vdots & \ddots & \vdots \\
             a_{m1} & a_{m2} & \cdots & a_{mj} & \cdots & a_{mn} \\
         };
-
-        % Capa de fondo para los resaltados de color
+        
+        % Fondo de resaltados
         \begin{scope}[on background layer]
-            % Resaltado de la Fila (Celeste)
-            \fill[rowcyan, rounded corners=3pt] 
-                ([xshift=-0.2cm, yshift=0.25cm]M-4-1.north west) 
-                rectangle 
-                ([xshift=0.2cm, yshift=-0.25cm]M-4-6.south east);
+            % Fila i
+            \fill[rowcyan, rounded corners=2pt]
+                ([xshift=-0.18cm,yshift=0.20cm]M-4-1.north west)
+                rectangle
+                ([xshift=0.18cm,yshift=-0.20cm]M-4-6.south east);
                 
-            % Resaltado de la Columna (Amarillo)
-            \fill[colyellow, rounded corners=3pt] 
-                ([xshift=-0.35cm, yshift=0.2cm]M-1-4.north west) 
-                rectangle 
-                ([xshift=0.35cm, yshift=-0.2cm]M-6-4.south east);
+            % Columna j
+            \fill[colyellow, rounded corners=2pt]
+                ([xshift=-0.30cm,yshift=0.18cm]M-1-4.north west)
+                rectangle
+                ([xshift=0.30cm,yshift=-0.18cm]M-6-4.south east);
                 
-            % Resaltado de la Intersección (Verde)
-            \fill[intgreen, rounded corners=3pt] 
-                ([xshift=-0.35cm, yshift=0.25cm]M-4-4.north west) 
-                rectangle 
-                ([xshift=0.35cm, yshift=-0.25cm]M-4-4.south east);
+            % Intersección a_ij
+            \fill[intgreen, rounded corners=2pt]
+                ([xshift=-0.30cm,yshift=0.20cm]M-4-4.north west)
+                rectangle
+                ([xshift=0.30cm,yshift=-0.20cm]M-4-4.south east);
         \end{scope}
-
-        % Flecha y etiqueta inferior
-        \node[titleblue, below left=2.5cm and 0.5cm of M-4-4] (text_comp) {Componente $i, j$};
-        \draw[->, thick, titleblue] (text_comp) -- ([yshift=-0.1cm, xshift=-0.1cm]M-4-4.south);
+        
+        % Etiqueta componente
+        \node[titleblue, below=1.35cm of M-4-4, align=center] (text_comp)
+        {Componente\\$(i,j)$};
+        
+        \draw[->, thick, titleblue]
+            (text_comp.north) -- ([yshift=-0.08cm]M-4-4.south);
         
     \end{tikzpicture}
-\end{minipage}
+    
+\end{columns}
+
+\end{frame}
+
+
+%%% Fin Slide-2
+
+
 
 \end{document}
