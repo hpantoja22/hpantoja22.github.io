@@ -1,107 +1,134 @@
 <!DOCTYPE html>
 <html lang="es">
-<head> 
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Materiales - Métodos Numéricos</title>
     <style>
+        :root {
+            --azul-oscuro: #1e5a8a;
+            --azul: #2b7bbf;
+            --celeste: #e8f4fb;
+            --fondo: #f5faff;
+            --gris: #8a99a6;
+        }
+        * { box-sizing: border-box; }
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f8ff; /* Celeste claro */
-            color: #000000; /* Negro */
+            background-color: var(--fondo);
+            color: #1a1a1a;
             margin: 0;
-            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
+
+        /* ---------- Header ---------- */
         header {
-            background-color: #87CEEB; /* Celeste */
-            color: #ffffff; /* Blanco */
-            padding: 10px 0;
-            text-align: center;
-            position: relative;
-        }
-        header h1, header p {
-            margin: 0;
-            text-align: center;
-        }
-        .navbar {
-            position: absolute;
-            top: 50%;
-            right: 20px;
-            transform: translateY(-50%);
+            background-color: var(--azul-oscuro);
+            color: #fff;
+            padding: 14px 24px;
             display: flex;
             align-items: center;
-            background-color: #23272A; /* Fondo del menú de navegación */
-            border-radius: 50px;
-            padding: 10px 20px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
         }
+        header h1 { margin: 0; font-size: 1.8rem; }
+        header p { margin: 4px 0 0; color: #d6e9f8; }
+
         .navbar ul {
             list-style: none;
             display: flex;
             margin: 0;
-            padding: 0;
+            padding: 6px;
+            background-color: #23272A;
+            border-radius: 50px;
         }
-        .navbar ul li {
-            margin: 0 10px;
-        }
-        .navbar ul li a {
+        .navbar a {
+            display: block;
             text-decoration: none;
             color: #fff;
-            padding: 10px 20px;
+            padding: 8px 18px;
             border-radius: 30px;
             transition: background-color 0.3s ease;
         }
-        .navbar ul li a:hover {
-            background-color: #3A3D42; /* Efecto hover */
-        }
-        .navbar ul li a.active {
-            background-color: #007BFF; /* Fondo azul para el elemento activo */
-            color: #fff;
-        }
+        .navbar a:hover { background-color: #3A3D42; }
+        .navbar a.active { background-color: #007BFF; }
+
+        /* ---------- Contenido ---------- */
         main {
-            padding: 20px;
+            flex: 1;
+            width: 100%;
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 24px 16px;
         }
-        h1, h2 {
-            color: #000000; /* Negro */
-        }
-        a {
-            color: #000000; /* Negro */
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
+        h2 { color: var(--azul-oscuro); margin-top: 0; }
+
+        .tabla-wrap { overflow-x: auto; }
         table {
             border-collapse: collapse;
-            margin: 10px 0;
-            width: auto; /* Ajuste al contenido */
+            width: 100%;
+            background: #fff;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
         }
         th, td {
-            border: 1px solid black;
-            padding: 8px; /* Pequeño margen */
+            border: 1px solid #c9dbe8;
+            padding: 10px 12px;
             text-align: left;
             vertical-align: top;
+            line-height: 1.6;
         }
         th {
-            background-color: #87CEEB; /* Celeste */
-            color: #ffffff; /* Blanco */
+            background-color: var(--azul-oscuro);
+            color: #fff;
         }
-        footer {
-            background-color: #87CEEB; /* Celeste */
-            color: #ffffff; /* Blanco */
+        tbody tr:nth-child(even) { background-color: var(--celeste); }
+        tbody tr:hover { background-color: #d4eaf7; }
+
+        td.num {
+            width: 40px;
             text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
+            font-weight: bold;
+            color: var(--azul-oscuro);
+        }
+
+        /* Enlaces visibles con ícono según tipo */
+        td a {
+            color: var(--azul);
+            text-decoration: none;
+        }
+        td a:hover { text-decoration: underline; }
+        td a[href$=".pdf"]::before  { content: "📄 "; }
+        td a[href*="github.com"]::before { content: "💻 "; }
+        td a[href$=".html"]::before { content: "🧮 "; }
+
+        .pendiente { color: var(--gris); font-style: italic; }
+
+        /* ---------- Footer ---------- */
+        footer {
+            background-color: var(--azul-oscuro);
+            color: #d6e9f8;
+            text-align: center;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+        }
+        footer p { margin: 0; }
+
+        /* ---------- Móvil ---------- */
+        @media (max-width: 700px) {
+            header { flex-direction: column; text-align: center; }
+            .navbar a { padding: 8px 12px; }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Métodos Numéricos</h1>
-        <p>Profesor: Dr. Hermes Pantoja Carhuavilca</p>
-        
-        <!-- Menú de Navegación -->
+        <div>
+            <h1>Métodos Numéricos</h1>
+            <p>Profesor: Dr. Hermes Pantoja Carhuavilca</p>
+        </div>
         <nav class="navbar">
             <ul>
                 <li><a href="PortalNumerico.html">Home</a></li>
@@ -110,87 +137,104 @@
             </ul>
         </nav>
     </header>
-    
+
     <main>
         <section id="materiales">
             <h2>Materiales de Estudio</h2>
-            <table>
-                <tr>
-                    <th>Tema</th>
-                    <th>Diapositiva</th>
-                    <th>Casos de uso</th>
-                    <th>Ejercicios</th>
-                </tr>
-                <tr>
-                    <td>Introducción a los Métodos Numéricos</td>
-                    <td><a href="./01_Metodos_Numericos_Introduccion.pdf" target="_blank">Introducción a los Métodos Numéricos en Ingeniería</a></td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Teoría de Errores</td>
-                    <td><a href="./Sesion_Teoria_Errores.pdf" target="_blank">Teoría de Errores</a></td>
-                    <td>
-                        <a href="https://github.com/hpantoja22/Teoria-Errores" target="_blank">Cifras significativas</a><br>
-                        <a href="https://github.com/hpantoja22/PropagacionErrores" target="_blank">Propagación de errores</a>
-                    </td>
-                    <td><a href="./PropagaErrores01.pdf" target="_blank">PropagaErrores01</a></td>
-                </tr>
-                <tr>
-                    <td>Aritmética del Computador</td>
-                    <td><a href="./03_Aritmetica_del_Computador.pdf" target="_blank">Aritmética del Computador</a></td>
-                    <td><a href="./Aritmetica_Computador.html" target="_blank">Punto Flotante</a></td>
-                </tr>
-                <tr>
-                    <td>Solución de ecuaciones no lineales</td>
-                     <td><a href="./PPT_EcuacionesNoLineales.pdf" target="_blank">Solución de ecuaciones no lineales</a></td>
-                    <td><a href="./Biseccion_Criterio_del_Error_2.html" target="_blank">Bisección - Criterio del Error</a></td>
-                </tr>
-                <tr>
-                    <td>Métodos de solución de sistemas de ecuaciones lineales</td>
-                    <td><a href="./PPT_MetodosDirecto.pdf" target="_blank">Métodos Directos</a><br>
-                    <a href="./PPT_MetodosIterativos.pdf" target="_blank">Métodos Iterativos</a>
-                    </td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Interpolación Polinomial</td>
-                     <td><a href="./Sesion_Interpolacion_polinomial.pdf" target="_blank">Interpolación Polinomial</a></td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Ajuste de Curvas</td>
-                    <td><a href="./Sesion_Ajuste_Curvas.pdf" target="_blank">Ajuste de Curvas</a></td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Derivación e integración numérica</td>
-                    <td><a href="./Sesion_Diferenciacion_Numerica.pdf" target="_blank">Diferenciación Numérica</a><br>
-                    <a href="./Sesion_Integracion_Numerica_New.pdf" target="_blank">Integración Numérica (Newton Cotes)</a><br>
-                    <a href="./Sesion_Gauss_Romberg_New.pdf" target="_blank">Integración Numérica (Romberg - Cuadratura de Gauss)</a>
-                    </td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Ecuaciones Diferenciales Ordinarias</td>
-                    <td><a href="./Sesion_Ecuaciones_Diferenciales.pdf" target="_blank">Ecuaciones Diferenciales Ordinarias</a></td>
-                    <td>-</td>
-                </tr>
-                <!-- Puedes agregar más temas aquí -->
-            </table>
+            <div class="tabla-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Tema</th>
+                            <th>Diapositiva</th>
+                            <th>Casos de uso</th>
+                            <th>Ejercicios</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="num">1</td>
+                            <td>Introducción a los Métodos Numéricos</td>
+                            <td><a href="./01_Metodos_Numericos_Introduccion.pdf" target="_blank">Introducción a los Métodos Numéricos en Ingeniería</a></td>
+                            <td class="pendiente">Próximamente</td>
+                            <td class="pendiente">Próximamente</td>
+                        </tr>
+                        <tr>
+                            <td class="num">2</td>
+                            <td>Teoría de Errores</td>
+                            <td><a href="./Sesion_Teoria_Errores.pdf" target="_blank">Teoría de Errores</a></td>
+                            <td>
+                                <a href="https://github.com/hpantoja22/Teoria-Errores" target="_blank">Cifras significativas</a><br>
+                                <a href="https://github.com/hpantoja22/PropagacionErrores" target="_blank">Propagación de errores</a>
+                            </td>
+                            <td><a href="./PropagaErrores01.pdf" target="_blank">PropagaErrores01</a></td>
+                        </tr>
+                        <tr>
+                            <td class="num">3</td>
+                            <td>Aritmética del Computador</td>
+                            <td><a href="./03_Aritmetica_del_Computador.pdf" target="_blank">Aritmética del Computador</a></td>
+                            <td><a href="./Aritmetica_Computador.html" target="_blank">Punto Flotante</a></td>
+                            <td class="pendiente">Próximamente</td>
+                        </tr>
+                        <tr>
+                            <td class="num">4</td>
+                            <td>Solución de ecuaciones no lineales</td>
+                            <td><a href="./PPT_EcuacionesNoLineales.pdf" target="_blank">Solución de ecuaciones no lineales</a></td>
+                            <td><a href="./Biseccion_Criterio_del_Error_2.html" target="_blank">Bisección - Criterio del Error</a></td>
+                            <td class="pendiente">Próximamente</td>
+                        </tr>
+                        <tr>
+                            <td class="num">5</td>
+                            <td>Métodos de solución de sistemas de ecuaciones lineales</td>
+                            <td>
+                                <a href="./PPT_MetodosDirecto.pdf" target="_blank">Métodos Directos</a><br>
+                                <a href="./PPT_MetodosIterativos.pdf" target="_blank">Métodos Iterativos</a>
+                            </td>
+                            <td class="pendiente">Próximamente</td>
+                            <td class="pendiente">Próximamente</td>
+                        </tr>
+                        <tr>
+                            <td class="num">6</td>
+                            <td>Interpolación Polinomial</td>
+                            <td><a href="./Sesion_Interpolacion_polinomial.pdf" target="_blank">Interpolación Polinomial</a></td>
+                            <td class="pendiente">Próximamente</td>
+                            <td class="pendiente">Próximamente</td>
+                        </tr>
+                        <tr>
+                            <td class="num">7</td>
+                            <td>Ajuste de Curvas</td>
+                            <td><a href="./Sesion_Ajuste_Curvas.pdf" target="_blank">Ajuste de Curvas</a></td>
+                            <td class="pendiente">Próximamente</td>
+                            <td class="pendiente">Próximamente</td>
+                        </tr>
+                        <tr>
+                            <td class="num">8</td>
+                            <td>Derivación e integración numérica</td>
+                            <td>
+                                <a href="./Sesion_Diferenciacion_Numerica.pdf" target="_blank">Diferenciación Numérica</a><br>
+                                <a href="./Sesion_Integracion_Numerica_New.pdf" target="_blank">Integración Numérica (Newton Cotes)</a><br>
+                                <a href="./Sesion_Gauss_Romberg_New.pdf" target="_blank">Integración Numérica (Romberg - Cuadratura de Gauss)</a>
+                            </td>
+                            <td class="pendiente">Próximamente</td>
+                            <td class="pendiente">Próximamente</td>
+                        </tr>
+                        <tr>
+                            <td class="num">9</td>
+                            <td>Ecuaciones Diferenciales Ordinarias</td>
+                            <td><a href="./Sesion_Ecuaciones_Diferenciales.pdf" target="_blank">Ecuaciones Diferenciales Ordinarias</a></td>
+                            <td class="pendiente">Próximamente</td>
+                            <td class="pendiente">Próximamente</td>
+                        </tr>
+                        <!-- Agrega más temas aquí (5 celdas por fila) -->
+                    </tbody>
+                </table>
+            </div>
         </section>
     </main>
+
     <footer>
-        <p> .</p>
+        <p>Métodos Numéricos · Dr. Hermes Pantoja Carhuavilca · 2026</p>
     </footer>
 </body>
-
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
- // Make responsive
- MathJax.Hub.Config({
- "HTML-CSS": { linebreaks: { automatic: true } },
- "SVG": { linebreaks: { automatic: true } },
- });
-</script>
-
 </html>
