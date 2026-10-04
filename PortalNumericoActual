@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Métodos Numéricos</title>
+    <style>
+        :root {
+            --azul-oscuro: #1e5a8a;
+            --azul: #2b7bbf;
+            --celeste: #e8f4fb;
+            --fondo: #f5faff;
+            --acento: #ff9f1c;
+            --texto: #1a1a1a;
+            --suave: #5b6b78;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--fondo);
+            color: var(--texto);
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ---------- Header (igual que Materiales) ---------- */
+        header {
+            background-color: var(--azul-oscuro);
+            color: #fff;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        header h1 { margin: 0; font-size: 1.8rem; }
+        header p { margin: 4px 0 0; color: #d6e9f8; }
+        .navbar ul {
+            list-style: none; display: flex; margin: 0; padding: 6px;
+            background-color: #23272A; border-radius: 50px;
+        }
+        .navbar a {
+            display: block; text-decoration: none; color: #fff;
+            padding: 8px 18px; border-radius: 30px;
+            transition: background-color 0.3s ease;
+        }
+        .navbar a:hover { background-color: #3A3D42; }
+        .navbar a.active { background-color: #007BFF; }
+
+        main { flex: 1; }
+        .contenedor { max-width: 1150px; margin: 0 auto; padding: 0 16px; }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            background: linear-gradient(135deg, #e3f1fb 0%, #ffffff 100%);
+            padding: 48px 0;
+        }
+        .hero .contenedor {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 32px;
+            align-items: center;
+        }
+        .etiqueta {
+            display: inline-block;
+            background: var(--celeste);
+            color: var(--azul-oscuro);
+            font-weight: bold;
+            font-size: 0.85rem;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+        .hero h2 {
+            font-size: 2.3rem;
+            line-height: 1.2;
+            margin: 14px 0;
+            color: var(--azul-oscuro);
+        }
+        .hero p { font-size: 1.1rem; line-height: 1.6; color: var(--suave); }
+        .botones { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+        .btn {
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .btn-primario { background: #007BFF; color: #fff; }
+        .btn-secundario { background: #fff; color: var(--azul-oscuro); border: 2px solid var(--azul-oscuro); }
+        .hero svg {
+            width: 100%;
+            height: auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(30, 90, 138, 0.15);
+        }
+
+        /* ---------- Secciones ---------- */
+        section { padding: 44px 0; }
+        section h2.titulo {
+            text-align: center;
+            color: var(--azul-oscuro);
+            font-size: 1.8rem;
+            margin: 0 0 8px;
+        }
+        .subtitulo { text-align: center; color: var(--suave); margin: 0 0 28px; }
+
+        /* Tarjetas de temas */
+        .grid-temas {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 18px;
+        }
+        .tema {
+            background: #fff;
+            border-radius: 14px;
+            padding: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            border-top: 4px solid var(--azul);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .tema:hover { transform: translateY(-4px); box-shadow: 0 8px 18px rgba(0,0,0,0.12); }
+        .tema svg { width: 100%; height: 90px; background: var(--celeste); border-radius: 10px; }
+        .tema .n { color: var(--acento); font-weight: bold; font-size: 0.85rem; margin-top: 12px; }
+        .tema h3 { margin: 4px 0 6px; font-size: 1.05rem; color: var(--azul-oscuro); }
+        .tema p { margin: 0; font-size: 0.92rem; color: var(--suave); line-height: 1.5; }
+
+        /* Metodología */
+        .metodo { background: #fff; }
+        .grid-metodo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+        .paso .icono {
+            width: 70px; height: 70px; margin: 0 auto 10px;
+            border-radius: 50%;
+            background: var(--celeste);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem;
+        }
+        .paso h3 { color: var(--azul-oscuro); margin: 6px 0; }
+        .paso p { color: var(--suave); margin: 0; line-height: 1.5; }
+
+        /* Llamado final */
+        .cta {
+            background: linear-gradient(135deg, var(--azul-oscuro), var(--azul));
+            color: #fff;
+            text-align: center;
+            border-radius: 16px;
+            padding: 36px 20px;
+            margin: 0 16px;
+        }
+        .cta h2 { margin: 0 0 10px; }
+        .cta p { margin: 0 0 20px; color: #d6e9f8; }
+        .cta .btn-primario { background: var(--acento); color: #1a1a1a; }
+
+        footer {
+            background-color: var(--azul-oscuro);
+            color: #d6e9f8;
+            text-align: center;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            margin-top: 44px;
+        }
+        footer p { margin: 0; }
+
+        @media (max-width: 800px) {
+            header { flex-direction: column; text-align: center; }
+            .hero .contenedor { grid-template-columns: 1fr; }
+            .hero h2 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>Métodos Numéricos</h1>
+            <p>Profesor: Dr. Hermes Pantoja Carhuavilca</p>
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="PortalNumerico.html" class="active">Home</a></li>
+                <li><a href="Contenido.html">Contenido</a></li>
+                <li><a href="Materiales.html">Materiales</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ===== HERO ===== -->
+        <div class="hero">
+            <div class="contenedor">
+                <div>
+                    <span class="etiqueta">Introducción al Curso</span>
+                    <h2>Resuelve con la computadora lo que el álgebra no alcanza</h2>
+                    <p>Bienvenidos al curso de Métodos Numéricos. Exploraremos técnicas y algoritmos
+                       para resolver problemas matemáticos de manera numérica, y aprenderemos a
+                       implementarlos y aplicarlos en distintos contextos de ingeniería.</p>
+                    <div class="botones">
+                        <a class="btn btn-primario" href="Materiales.html">📚 Ver materiales</a>
+                        <a class="btn btn-secundario" href="Contenido.html">🗂️ Ver contenido</a>
+                    </div>
+                </div>
+
+                <!-- Ilustración: raíz, integración e interpolación en una sola gráfica -->
+                <svg viewBox="0 0 400 280" role="img" aria-label="Gráfica de una función con su raíz y el área bajo la curva">
+                    <defs>
+                        <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                            <path d="M20 0H0V20" fill="none" stroke="#e3eef6" stroke-width="1"/>
+                        </pattern>
+                    </defs>
+                    <rect width="400" height="280" fill="url(#grid)"/>
+                    <!-- Ejes -->
+                    <line x1="30" y1="170" x2="380" y2="170" stroke="#5b6b78" stroke-width="2"/>
+                    <line x1="50" y1="20" x2="50" y2="260" stroke="#5b6b78" stroke-width="2"/>
+                    <text x="370" y="190" font-size="14" fill="#5b6b78">x</text>
+                    <text x="58" y="32" font-size="14" fill="#5b6b78">y</text>
+                    <!-- Área bajo la curva (integración) -->
+                    <path d="M230 170 L230 135 C260 95 290 70 330 60 L330 170 Z" fill="#ff9f1c" opacity="0.35"/>
+                    <!-- Curva -->
+                    <path d="M60 240 C110 230 150 200 190 170 C230 135 260 95 330 60 L360 50"
+                          fill="none" stroke="#2b7bbf" stroke-width="3"/>
+                    <!-- Intervalo de bisección -->
+                    <line x1="130" y1="170" x2="130" y2="212" stroke="#1e5a8a" stroke-dasharray="4 4"/>
+                    <line x1="250" y1="170" x2="250" y2="113" stroke="#1e5a8a" stroke-dasharray="4 4"/>
+                    <text x="122" y="160" font-size="13" fill="#1e5a8a">a</text>
+                    <text x="246" y="186" font-size="13" fill="#1e5a8a">b</text>
+                    <!-- Raíz -->
+                    <circle cx="190" cy="170" r="7" fill="#e63946"/>
+                    <text x="165" y="198" font-size="13" fill="#e63946" font-weight="bold">f(x*) = 0</text>
+                    <!-- Puntos de interpolación -->
+                    <circle cx="90" cy="232" r="5" fill="#1e5a8a"/>
+                    <circle cx="300" cy="74" r="5" fill="#1e5a8a"/>
+                    <circle cx="350" cy="53" r="5" fill="#1e5a8a"/>
+                    <!-- Fórmula -->
+                    <text x="265" y="130" font-size="14" fill="#a35d00" font-style="italic">∫ f(x) dx</text>
+                    <text x="70" y="60" font-size="13" fill="#5b6b78">x<tspan font-size="9" dy="4">k+1</tspan><tspan dy="-4"> = x</tspan><tspan font-size="9" dy="4">k</tspan><tspan dy="-4"> − f(x</tspan><tspan font-size="9" dy="4">k</tspan><tspan dy="-4">)/f′(x</tspan><tspan font-size="9" dy="4">k</tspan><tspan dy="-4">)</tspan></text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- ===== TEMAS ===== -->
+        <section>
+            <div class="contenedor">
+                <h2 class="titulo">¿Qué aprenderás?</h2>
+                <p class="subtitulo">9 unidades, de los fundamentos a las ecuaciones diferenciales</p>
+
+                <div class="grid-temas">
+                    <a class="tema" href="Materiales.html">
+                        <svg viewBox="0 0 200 90"><rect x="60" y="15" width="80" height="50" rx="6" fill="#fff" stroke="#2b7bbf" stroke-width="3"/><line x1="90" y1="75" x2="110" y2="75" stroke="#2b7bbf" stroke-width="4"/><text x="100" y="47" font-size="18" text-anchor="middle" fill="#1e5a8a" font-style="italic">f(x) ≈</text></svg>
+                        <div class="n">UNIDAD 1</div>
+                        <h3>Introducción</h3>
+                        <p>Qué son los métodos numéricos y por qué los usa la ingeniería.</p>
+                    </a>
+                    <a class="tema" href="Materiales.html">
+                        <svg viewBox="0 0 200 90"><circle cx="100" cy="45" r="34" fill="#fff" stroke="#2b7bbf" stroke-width="3"/><circle cx="100" cy="45" r="20" fill="none" stroke="#2b7bbf" stroke-width="3"/><circle cx="100" cy="45" r="5" fill="#e63946"/><circle cx="112" cy="36" r="4" fill="#ff9f1c"/><circle cx="88" cy="58" r="4" fill="#ff9f1c"/></svg>
+                        <div class="n">UNIDAD 2</div>
+                        <h3>Teoría de Errores</h3>
+                        <p>Cifras significativas, error absoluto, relativo y su propagación.</p>
+                    </a>
+                    <a class="tema" href="Materiales.html">
+                        <svg viewBox="0 0 200 90"><text x="100" y="40" font-size="16" text-anchor="middle" fill="#1e5a8a" font-family="monospace">0 10000010 0100…</text><text x="100" y="66" font-size="16" text-anchor="middle" fill="#a35d00" font-style="italic">± m × 2ᵉ</text></svg>
+                        <div class="n">UNIDAD 3</div>
+                        <h3>Aritmética del Computador</h3>
+                        <p>Representación en punto flotante y errores de redondeo.</p>
+                    </a>
+                    <a class="tema" href="Materiales.html">
+                        <svg viewBox="0 0 200 90"><line x1="20" y1="50" x2="180" y2="50" stroke="#5b6b78" stroke-width="2"/><path d="M30 80 C70 75 90 55 105 50 C125 40 150 20 175 12" fill="none" stroke="#2b7bbf" stroke-width="3"/><circle cx="105" cy="50" r="6" fill="#e63946"/></svg>
+                        <div class="n">UNIDAD 4</div>
+                        <h3>Ecuaciones no lineales</h3>
+                        <p>Bisección, Newton-Raphson y otros métodos para hallar raíces.</p>
+                    </a>
+                    <a class="tema" href="Materiales.html">
+                        <svg viewBox="0 0 200 90"><text x="100" y="32" font-size="15" text-anchor="middle" fill="#1e5a8a" font-family="monospace">[ 4 -1  0 ]</text><text x="100" y="52" font-size="15" text-anchor="middle" fill="#1e5a8a" font-family="monospace">[-1  4 -1 ]</text><text x="100" y="72" font-size="15" text-anchor="middle" fill="#1e5a8a" font-family="monospace">[ 0 -1  4 ]</text></svg>
+                        <div class="n">UNIDAD 5</div>
+                        <h3>Sistemas de ecuaciones lineales</h3>
+                        <p>Métodos directos (Gauss, LU) e iterativos (Jacobi, Gauss-Seidel).</p>
+                    </a>
+                    <a class="tema" href="Materiales.html">
+                        <svg viewBox="0 0 200 90"><path d="M25 70 C60 10 100 80 135 30 S175 40 180 35" fill="none" stroke="#2b7bbf" stroke-width="3"/><circle cx="25" cy="70" r="5" fill="#e63946"/><circle cx="68" cy="38" r="5" fill="#e63946"/><circle cx="108" cy="55" r="5" fill="#e63946"/><circle cx="148" cy="30" r="5" fill="#e63946"/><circle cx="180" cy="35" r="5" fill="#e63946"/></svg>
+                        <div class="n">UNIDAD 6</div>
+                        <h3>Interpolación Polinomial</h3>
+                        <p>Polinomios de Lagrange y Newton que pasan por los datos.</p>
+                    </a>
+                    <a class="tema" href="Materiales.html">
+                        <svg viewBox="0 0 200 90"><line x1="25" y1="75" x2="180" y2="15" stroke="#2b7bbf" stroke-width="3"/><circle cx="35" cy="65" r="4" fill="#e63946"/><circle cx="55" cy="68" r="4" fill="#e63946"/><circle cx="75" cy="50" r="4" fill="#e63946"/><circle cx="100" cy="52" r="4" fill="#e63946"/><circle cx="120" cy="35" r="4" fill="#e63946"/><circle cx="145" cy="34" r="4" fill="#e63946"/><circle cx="165" cy="18" r="4" fill="#e63946"/></svg>
+                        <div class="n">UNIDAD 7</div>
+                        <h3>Ajuste de Curvas</h3>
+                        <p>Mínimos cuadrados para modelar datos experimentales.</p>
+                    </a>
+                    <a class="tema" href="Materiales.html">
+                        <svg viewBox="0 0 200 90"><path d="M40 80 L40 60 C70 40 110 30 160 20 L160 80 Z" fill="#ff9f1c" opacity="0.4"/><path d="M20 70 C50 50 110 30 180 15" fill="none" stroke="#2b7bbf" stroke-width="3"/><line x1="40" y1="80" x2="40" y2="58" stroke="#1e5a8a"/><line x1="80" y1="80" x2="80" y2="42" stroke="#1e5a8a"/><line x1="120" y1="80" x2="120" y2="30" stroke="#1e5a8a"/><line x1="160" y1="80" x2="160" y2="20" stroke="#1e5a8a"/></svg>
+                        <div class="n">UNIDAD 8</div>
+                        <h3>Derivación e Integración</h3>
+                        <p>Diferencias finitas, Newton-Cotes, Romberg y cuadratura de Gauss.</p>
+                    </a>
+                    <a class="tema" href="Materiales.html">
+                        <svg viewBox="0 0 200 90"><g stroke="#8fb8d8" stroke-width="2"><line x1="30" y1="25" x2="42" y2="20"/><line x1="70" y1="25" x2="82" y2="18"/><line x1="110" y1="25" x2="122" y2="16"/><line x1="150" y1="25" x2="162" y2="14"/><line x1="30" y1="55" x2="42" y2="52"/><line x1="70" y1="55" x2="82" y2="50"/><line x1="110" y1="55" x2="122" y2="47"/><line x1="150" y1="55" x2="162" y2="44"/></g><path d="M20 78 C70 70 120 55 180 25" fill="none" stroke="#2b7bbf" stroke-width="3"/><circle cx="20" cy="78" r="5" fill="#e63946"/></svg>
+                        <div class="n">UNIDAD 9</div>
+                        <h3>Ecuaciones Diferenciales</h3>
+                        <p>Euler, Runge-Kutta y solución numérica de EDOs.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== METODOLOGÍA ===== -->
+        <section class="metodo">
+            <div class="contenedor">
+                <h2 class="titulo">¿Cómo aprenderás?</h2>
+                <p class="subtitulo">Cada tema combina teoría, práctica interactiva y ejercicios</p>
+                <div class="grid-metodo">
+                    <div class="paso">
+                        <div class="icono">📄</div>
+                        <h3>Teoría</h3>
+                        <p>Diapositivas con los fundamentos de cada método.</p>
+                    </div>
+                    <div class="paso">
+                        <div class="icono">🧮</div>
+                        <h3>Casos de uso</h3>
+                        <p>Simulaciones interactivas y código en GitHub para ver cada método en acción.</p>
+                    </div>
+                    <div class="paso">
+                        <div class="icono">✍️</div>
+                        <h3>Ejercicios</h3>
+                        <p>Problemas propuestos para practicar y reforzar lo aprendido.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== LLAMADO FINAL ===== -->
+        <div class="contenedor" style="padding: 0;">
+            <div class="cta">
+                <h2>¿Listo para empezar?</h2>
+                <p>Revisa los materiales de la primera unidad y comienza hoy.</p>
+                <a class="btn btn-primario" href="Materiales.html">Ir a Materiales →</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Métodos Numéricos · Dr. Hermes Pantoja Carhuavilca · 2026</p>
+    </footer>
+</body>
+</html>
